@@ -3,6 +3,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import Header
+import os, shutil
 
 # 配置文件读取发送人员
 config = configparser.ConfigParser()
@@ -47,24 +48,10 @@ class SendEmailWithAttach:
 sender = SendEmailWithAttach(config['DEFAULT']['mail_host'], config['DEFAULT']['mail_user'],
                              config['DEFAULT']['mail_pass'])
 recivers = config['DEFAULT']['receivers'].split(',')
-back = sender.send(config['DEFAULT']['sender'], recivers, '/Users/zhangxiaobin/Downloads/蔡康永.epub', '蔡康永.epub')
-print('蔡康永.epub' + back)
-'''
-文件名：蔡康永的说话之道（完整版）.epub
-文件完整路径：/Users/zhangxiaobin/Downloads/doubanbooks250/蔡康永的说话之道（完整版）.epub
-work_dir = '/Users/zhangxiaobin/Downloads/doubanbooks250/'
+work_dir = '/Users/zhangxiaobin/Downloads/books/renweishenmehuozhe/'
 for parent, dirnames, filenames in os.walk(work_dir, followlinks=True):
     for filename in filenames:
         file_path = os.path.join(parent, filename)
         back = sender.send(config['DEFAULT']['sender'], recivers, file_path, filename)
         print(filename + back)
-        time.sleep(10)
 
-
-attach_file = '/Users/zhangxiaobin/Develop/github/toolbox/sendBooksToKindle/books/readMe.txt'
-back = sender.send(config['DEFAULT']['sender'], recivers, attach_file, 'readMe.txt')
-print("Start : %s" % time.ctime())
-time.sleep(5)
-print("End : %s" % time.ctime())
-print(back)
-'''
